@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DSN=user=postgres  password=postgres host=postgres database=postgres
+      - S3_UPLOAD_BUCKET=xxxxxxxxxxxxxxxxxxxxxxxxxx
+      - STEP_FUNCTIONS_ARN=xxxxxxxxxxxxxxxxxxxxxxx
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
