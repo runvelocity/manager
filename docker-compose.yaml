@@ -19,7 +19,6 @@ services:
     environment:
       - DSN=user=postgres  password=postgres host=postgres database=postgres
       - S3_UPLOAD_BUCKET=xxxxxxxxxxxxxxxxxxxxxxxxxx
-      - STEP_FUNCTIONS_ARN=xxxxxxxxxxxxxxxxxxxxxxx
     ports:
       - 8000:8000
     depends_on:

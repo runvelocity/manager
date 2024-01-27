@@ -12,6 +12,8 @@ import (
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/labstack/echo"
+	"github.com/runvelocity/manager/handlers"
+	"github.com/runvelocity/manager/models"
 )
 
 const (
@@ -41,7 +43,7 @@ func main() {
 	// Create an API handler which serves data from Postgres.
 	e := echo.New()
 
-	err = db.AutoMigrate(&Function{})
+	err = db.AutoMigrate(&models.Function{})
 	if err != nil {
 		log.Panicln("Error running db migration")
 	}
@@ -49,17 +51,17 @@ func main() {
 	e.Use(bindDb(db))
 
 	e.GET("/ping", func(c echo.Context) error {
-		pingResponse := PingResponse{Ok: true}
+		pingResponse := models.PingResponse{Ok: true}
 		return c.JSON(http.StatusOK, pingResponse)
 	})
 
-	e.POST("/functions", CreateFunctionHandler)
-	e.POST("/upload", UploadHandler)
-	e.POST("/invoke/:name", InvokeHandler)
-	e.GET("/functions", GetFunctionsHandler)
-	e.GET("/functions/:uuid", GetFunctionHandler)
-	e.PUT("/functions/:uuid", UpdateFunctionHandler)
-	e.DELETE("/functions/:uuid", DeleteFunctionHandler)
+	e.POST("/functions", handlers.CreateFunctionHandler)
+	e.POST("/upload", handlers.UploadHandler)
+	e.POST("/invoke/:name", handlers.InvokeHandler)
+	e.GET("/functions", handlers.GetFunctionsHandler)
+	e.GET("/functions/:uuid", handlers.GetFunctionHandler)
+	e.PUT("/functions/:uuid", handlers.UpdateFunctionHandler)
+	e.DELETE("/functions/:uuid", handlers.DeleteFunctionHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {

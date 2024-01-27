@@ -1,16 +1,14 @@
-package main
+package models
 
 type PingResponse struct {
 	Ok bool `json:"ok"`
 }
 
 type Function struct {
-	UUID           string `json:"uuid"`
-	Name           string `json:"name"`
-	CodeLocation   string `json:"codeLocation"`
-	RootFsLocation string `json:"rootFsLocation"`
-	Status         Status `json:"status"`
-	Handler        string `json:"handler"`
+	UUID         string `json:"uuid"`
+	Name         string `json:"name"`
+	CodeLocation string `json:"codeLocation"`
+	Handler      string `json:"handler"`
 }
 
 type FunctionsResponse struct {
@@ -21,21 +19,8 @@ type ErrorResponse struct {
 	Message string `json:"message"`
 }
 
-type Status string
-
-const (
-	PENDING Status = "Pending"
-	CREATED Status = "Created"
-	FAILED  Status = "Failed"
-)
-
 type UploadHandlerArgs struct {
 	Key string `json:"key"`
-}
-
-type StepFunctionsRequest struct {
-	UUID         string `json:"uuid"`
-	CodeLocation string `json:"codeLocation"`
 }
 
 type InvokeRequest struct {
