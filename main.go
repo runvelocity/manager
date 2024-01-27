@@ -57,7 +57,7 @@ func main() {
 
 	e.POST("/functions", handlers.CreateFunctionHandler)
 	e.POST("/upload", handlers.UploadHandler)
-	e.POST("/invoke/:name", handlers.InvokeHandler)
+	e.POST("/functions/invoke/:uuid", handlers.InvokeHandler)
 	e.GET("/functions", handlers.GetFunctionsHandler)
 	e.GET("/functions/:uuid", handlers.GetFunctionHandler)
 	e.PUT("/functions/:uuid", handlers.UpdateFunctionHandler)

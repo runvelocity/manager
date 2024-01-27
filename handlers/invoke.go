@@ -16,7 +16,7 @@ import (
 func InvokeHandler(c echo.Context) error {
 	db := c.Get("db").(*gorm.DB)
 	worker_url := os.Getenv("WORKER_URL")
-	name := c.Param("name")
+	uuid := c.Param("uuid")
 	var function models.Function
 	var args map[string]interface{}
 	err := c.Bind(&args)
@@ -24,7 +24,7 @@ func InvokeHandler(c echo.Context) error {
 		errObj := models.ErrorResponse{Message: err.Error()}
 		return c.JSON(http.StatusInternalServerError, errObj)
 	}
-	result := db.Where("name = ?", name).First(&function)
+	result := db.Where("uuid = ?", uuid).First(&function)
 	if result.Error != nil {
 		if result.Error == gorm.ErrRecordNotFound {
 			return c.String(http.StatusNotFound, "Function does not exist")
@@ -41,6 +41,8 @@ func InvokeHandler(c echo.Context) error {
 	invokeRequest := models.InvokeRequest{
 		FunctionId:    function.UUID,
 		InvokePayload: invokePayload,
+		Runtime:       function.Runtime,
+		CodeLocation:  function.CodeLocation,
 	}
 
 	argsJSON, err := json.Marshal(invokeRequest)

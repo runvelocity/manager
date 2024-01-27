@@ -9,6 +9,7 @@ type Function struct {
 	Name         string `json:"name"`
 	CodeLocation string `json:"codeLocation"`
 	Handler      string `json:"handler"`
+	Runtime      string `json:"runtime"`
 }
 
 type FunctionsResponse struct {
@@ -25,6 +26,8 @@ type UploadHandlerArgs struct {
 
 type InvokeRequest struct {
 	FunctionId    string        `json:"functionId"`
+	CodeLocation  string        `json:"codeLocation"`
+	Runtime       string        `json:"runtime"`
 	InvokePayload InvokePayload `json:"invokePayload"`
 }
 type InvokePayload struct {
