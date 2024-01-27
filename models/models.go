@@ -24,7 +24,7 @@ type UploadHandlerArgs struct {
 }
 
 type InvokeRequest struct {
-	VmId          string        `json:"vmId"`
+	FunctionId    string        `json:"functionId"`
 	InvokePayload InvokePayload `json:"invokePayload"`
 }
 type InvokePayload struct {

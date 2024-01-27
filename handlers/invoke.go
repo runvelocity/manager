@@ -39,7 +39,7 @@ func InvokeHandler(c echo.Context) error {
 	}
 
 	invokeRequest := models.InvokeRequest{
-		VmId:          function.UUID,
+		FunctionId:    function.UUID,
 		InvokePayload: invokePayload,
 	}
 
